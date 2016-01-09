@@ -14,13 +14,17 @@ defmodule Beehive.Router do
   end
 
   scope "/", Beehive do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
+    pipe_through :api
+    resources "/registration", RegistrationController, only: [:create]
+    resources "/session", SessionController, only: [:create, :destroy]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Beehive do
-  #   pipe_through :api
-  # end
+  scope "/api", Beehive do
+    pipe_through [:api]
+  end
+
+  scope "/", Beehive do
+    pipe_through :browser
+    get "/*path", PageController, :index
+  end
 end

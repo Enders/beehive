@@ -32,6 +32,8 @@ module.exports = {
   },
   resolve: {
     alias: {
+      components: __dirname + "/web/static/js/components",
+      actions: __dirname + "/web/static/js/actions",
       phoenix_html: __dirname + "/deps/phoenix_html/web/static/js/phoenix_html.js",
       phoenix: __dirname + "/deps/phoenix/web/static/js/phoenix.js"
     }
