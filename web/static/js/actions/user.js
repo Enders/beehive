@@ -1,6 +1,6 @@
 import jQuery from 'jquery'
 
-import { Navigate } from './history'
+import { pushPath } from 'redux-simple-router'
 
 function SignUpUserDone() {
   return {
@@ -49,7 +49,7 @@ export function SignUpUser(params) {
     }).done( (data) => {
       dispatch(SignUpUserDone())
       dispatch(SignInUserDone(data.user, data.token))
-      dispatch(Navigate('/submit'));
+      dispatch(pushPath('/jobs'));
     }).error( (xhr) => dispatch(SignUpUserFailed(xhr.responseJSON.errors)))
   }
 }
@@ -66,7 +66,7 @@ export function SignInUser(params) {
       dataType: "json"
     }).done( (data) => {
       dispatch(SignInUserDone(data.user, data.token))
-      dispatch(Navigate('/submit'));
+      dispatch(pushPath('/jobs'));
     }).error( (xhr) => dispatch(SignInUserFailed(xhr.responseJSON.errors)) )
   }
 }

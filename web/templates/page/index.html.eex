@@ -1,1 +1,32 @@
-<div id='root'></div>
+<div id='root'>
+  <div id="beehive-loading-issues">
+    <h1>Welcome to Beehive!</h1>
+
+    <p>If you are seeing this, then it's probably because your JS has been disabled... Sorry, this aint that kind of website. We are going to need your JS engine. It's the main purpose of the whole thing.</p>
+
+    <p>We want to use your JS engine and run stuff in it, using <strong>your electricity</strong> and <strong> your bandwidth</strong> for other people's benefits. They will not thank you (feature not yet implemented). That's what it's all about.</p>
+
+    <p>Turn it back on or turn away!</p>
+
+    <p>It could also mean that the fragile code of this little app has crashed and wasn't able to overwrite this text. If so. Haha.</p>
+  </div>
+</div>
+
+<style>
+  #beehive-pre-loading, #beehive-loading-issues {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+  }
+</style>
+
+<script>
+  (function(){
+    var root = document.getElementById('root');
+    var waitingDiv = document.createElement("div");
+    root.innerHTML = "";
+    waitingDiv.id = "beehive-pre-loading";
+    waitingDiv.innerHTML = "Please wait while the app is loaded...";
+    root.appendChild(waitingDiv);
+  })();
+</script>

@@ -1,16 +1,6 @@
 import { combineReducers } from 'redux'
+import { routeReducer } from 'redux-simple-router'
 import currentUser from './current_user'
+import userJobs from './user_jobs'
 
-function history(state={}, action) {
-  switch(action.type) {
-    case "HISTORY_START":
-      return Object.assign({}, state, { history: action.history });
-    case "HISTORY_NAVIGATE":
-      state.history.replaceState(null, action.url)
-      return state;
-    default:
-      return state;
-  }
-}
-
-export default combineReducers({ currentUser, history })
+export default combineReducers({ currentUser, userJobs, routing: routeReducer })

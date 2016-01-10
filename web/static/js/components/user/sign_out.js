@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { SignOutUser } from "actions/user"
-import { Navigate } from "actions/history"
+import { pushPath } from 'redux-simple-router'
 
 class SignOut extends Component {
 
   signOut () {
     this.props.dispatch(SignOutUser())
-    this.props.dispatch(Navigate("/home"))
+    this.props.dispatch(pushPath("/home"))
   }
 
   render () {

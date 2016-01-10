@@ -1,5 +1,3 @@
-import css from './beehive_app.less'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
@@ -15,10 +13,10 @@ class BeehiveApp extends Component {
     var menuItems, homeLink, rightMenuItems;
 
     if (loggedIn) {
-      homeLink = "/submit"
+      homeLink = "/jobs"
       menuItems = (
         <ul className="nav navbar-nav">
-          <BootstrapLink to="/submit">My Jobs</BootstrapLink>
+          <BootstrapLink to="/jobs">My Jobs</BootstrapLink>
           <BootstrapLink to="/compute">Compute</BootstrapLink>
         </ul>
       )

@@ -33,7 +33,7 @@ defmodule Beehive.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_beehive_key",
-    signing_salt: "GimOCaLQ"
+    signing_salt: "rF78EfvQxx56wW"
 
   plug Beehive.Router
 end

@@ -13,6 +13,10 @@ defmodule Beehive.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticate do
+    plug Beehive.Plugs.Token
+  end
+
   scope "/", Beehive do
     pipe_through :api
     resources "/registration", RegistrationController, only: [:create]
@@ -20,7 +24,9 @@ defmodule Beehive.Router do
   end
 
   scope "/api", Beehive do
-    pipe_through [:api]
+    pipe_through [:api, :authenticate]
+
+    resources "/jobs", JobController
   end
 
   scope "/", Beehive do
