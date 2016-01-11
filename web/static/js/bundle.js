@@ -9,14 +9,16 @@ import ReactDOM from 'react-dom'
 import BeehiveApp from './components/beehive_app'
 import SignUp from './components/user/sign_up'
 import SignIn from './components/user/sign_in'
-import UserJobs from './components/jobs/user_jobs'
+import JobIndex from './components/jobs/job_index'
+import JobNew from './components/jobs/job_new'
+
 // import Compute from './components/compute'
 import Home from './components/home'
 
 // React router
 import { Router, IndexRoute, Route } from 'react-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
+import { syncReduxAndRouter, routeReducer, pushPath } from 'redux-simple-router'
 
 // Redux
 import { createStore, applyMiddleware } from 'redux'
@@ -29,14 +31,6 @@ const history = createBrowserHistory()
 
 syncReduxAndRouter(history, store)
 
-// //Things are getting serious
-// store.dispatch({
-//   type: "HISTORY_START",
-//   history: history
-// })
-
-// <Route path="compute" component={Compute} />
-
 //No turning back.
 ReactDOM.render((
   <Provider store={store}>
@@ -46,9 +40,12 @@ ReactDOM.render((
         <Route path="sign_up" component={SignUp} />
         <Route path="sign_in" component={SignIn} />
         <Route path="home" component={Home} />
-        <Route path="jobs" component={UserJobs} />
-
+        <Route path="jobs" component={JobIndex}/>
+        <Route path="jobs/new" component={JobNew}/>
       </Route>
     </Router>
   </Provider>
 ), document.getElementById('root'))
+
+//Go back home until we can remember the token
+store.dispatch(pushPath('/'))

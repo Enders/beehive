@@ -11,13 +11,13 @@ export default function currentUser(state, action) {
 
   switch(action.type) {
     case 'SIGN_UP_USER_DONE':
-      return Object.assign({}, state, {registrationStatus: "done"})
+      return {...state, registrationStatus: "done"}
 
     case 'SIGN_UP_USER_FAILED':
-      return Object.assign({}, state, {registrationStatus: "failed", registrationErrors: action.errors})
+      return {...state, registrationStatus: "failed", registrationErrors: action.errors}
 
     case 'SIGN_UP_USER_PENDING':
-      return Object.assign({}, state, {registrationStatus: "pending"})
+      return {...state, registrationStatus: "pending"}
 
     case 'SIGN_IN_USER_DONE':
       // Add the token info to all $.ajax queries
@@ -29,16 +29,16 @@ export default function currentUser(state, action) {
           }
         }
       });
-      return Object.assign({}, state, {user: action.user, token: action.token})
+      return {...state, user: action.user, token: action.token}
 
     case 'SIGN_IN_USER_PENDING':
-      return Object.assign({}, state, {signInStatus: "pending"})
+      return {...state, signInStatus: "pending"}
 
     case 'SIGN_IN_USER_FAILED':
-      return Object.assign({}, state, {signInStatus: "failed", signInErrors: action.errors})
+      return {...state, signInStatus: "failed", signInErrors: action.errors}
 
     case 'SIGN_OUT_USER':
-      return Object.assign({}, state, {signInStatus: null, user: null, token: null, signInErrors: null})
+      return {...state, signInStatus: null, user: null, token: null, signInErrors: null}
 
     default:
       return state;

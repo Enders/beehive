@@ -43,8 +43,8 @@ class JobList extends Component {
           </tr>
         </thead>
         <tbody>
-          {jobs.map( (job, index) => {
-            return (<Job key={index} job={job} />)
+          {jobs.map( (job) => {
+            return (<Job key={job.id} job={job} />)
           })}
         </tbody>
       </table>
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
   return {
     jobs: (state.userJobs.jobs || []),
     noJobs: (state.userJobs.jobs || []).length == 0,
-    fetchError: state.userJobs.fetchStatus == "error",
+    fetchError: state.userJobs.fetchStatus == "failed",
     fetching: state.userJobs.fetchStatus == "pending",
   }
 }

@@ -12,6 +12,7 @@ defmodule Beehive.JobView do
   def render("job.json", %{job: job}) do
     %{id: job.id,
       payload: job.payload,
-      max_run: job.max_run}
+      max_run: job.max_run,
+      created_at: job.inserted_at}
   end
 end
