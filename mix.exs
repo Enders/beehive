@@ -19,7 +19,7 @@ defmodule Beehive.Mixfile do
   def application do
     [mod: {Beehive, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :joken]]
+                    :phoenix_ecto, :postgrex, :comeonin, :joken, :ex_machina]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,8 @@ defmodule Beehive.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.0"},
-     {:joken, "~> 1.0"}]
+     {:joken, "~> 1.0"},
+     {:ex_machina, "~> 0.6.1"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

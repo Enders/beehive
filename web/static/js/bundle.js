@@ -11,6 +11,7 @@ import SignUp from './components/user/sign_up'
 import SignIn from './components/user/sign_in'
 import JobIndex from './components/jobs/job_index'
 import JobNew from './components/jobs/job_new'
+import JobExecutionIndex from './components/job_executions/index'
 
 // import Compute from './components/compute'
 import Home from './components/home'
@@ -42,6 +43,7 @@ ReactDOM.render((
         <Route path="home" component={Home} />
         <Route path="jobs" component={JobIndex}/>
         <Route path="jobs/new" component={JobNew}/>
+        <Route path="run" component={JobExecutionIndex}/>
       </Route>
     </Router>
   </Provider>

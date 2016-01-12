@@ -17,7 +17,7 @@ class BeehiveApp extends Component {
       menuItems = (
         <ul className="nav navbar-nav">
           <BootstrapLink to="/jobs">My Jobs</BootstrapLink>
-          <BootstrapLink to="/compute">Compute</BootstrapLink>
+          <BootstrapLink to="/run">Run jobs</BootstrapLink>
         </ul>
       )
       rightMenuItems = (

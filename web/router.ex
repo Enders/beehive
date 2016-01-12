@@ -27,6 +27,7 @@ defmodule Beehive.Router do
     pipe_through [:api, :authenticate]
 
     resources "/jobs", JobController
+    resources "/job_executions", JobExecutionController
   end
 
   scope "/", Beehive do
