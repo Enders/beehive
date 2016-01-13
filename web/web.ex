@@ -58,6 +58,10 @@ defmodule Beehive.Web do
       import Beehive.Router.Helpers
       import Beehive.ErrorHelpers
       import Beehive.Gettext
+
+      def current_user(conn) do
+        conn.assigns[:current_user]
+      end
     end
   end
 

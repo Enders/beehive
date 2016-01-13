@@ -6,8 +6,11 @@ defmodule Beehive.RegistrationController do
 
     case Beehive.Registration.create(changeset, Beehive.Repo) do
       {:ok, user} ->
+        token = User.generate_token(user)
         conn
           |> put_status(:ok)
+          |> put_resp_cookie("_beehive_session_token", token, max_age: 15*24*3600)
+          |> put_resp_cookie("_beehive_session_user", Integer.to_string(user.id), max_age: 15*24*3600)
           |> render(Beehive.UserView, "signin.json", user: user, token: User.generate_token(user))
       {:error, changeset } ->
         conn

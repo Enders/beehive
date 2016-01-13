@@ -15,7 +15,7 @@ function SignUpUserFailed(errors) {
   }
 }
 
-function SignInUserDone(user, token) {
+export function SignInUserDone(user, token) {
   return {
     type: "SIGN_IN_USER_DONE",
     user: user,

@@ -5,6 +5,9 @@ require('../less/app.less');
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+// Login action
+import { SignInUserDone } from "actions/user"
+
 // React top level components
 import BeehiveApp from './components/beehive_app'
 import SignUp from './components/user/sign_up'
@@ -49,5 +52,11 @@ ReactDOM.render((
   </Provider>
 ), document.getElementById('root'))
 
-//Go back home until we can remember the token
-store.dispatch(pushPath('/'))
+var {currentUser} = window;
+
+if(currentUser){
+  store.dispatch(SignInUserDone(currentUser.user, currentUser.token))
+  store.dispatch(pushPath('/jobs'))
+} else {
+  store.dispatch(pushPath('/'))
+}

@@ -20,15 +20,6 @@ export default function currentUser(state, action) {
       return {...state, registrationStatus: "pending"}
 
     case 'SIGN_IN_USER_DONE':
-      // Add the token info to all $.ajax queries
-      jQuery.ajaxPrefilter(function( options ) {
-        if ( !options.beforeSend) {
-          options.beforeSend = function (xhr) {
-            xhr.setRequestHeader('x-current-user', action.user.id);
-            xhr.setRequestHeader('x-auth-token', action.token);
-          }
-        }
-      });
       return {...state, user: action.user, token: action.token}
 
     case 'SIGN_IN_USER_PENDING':

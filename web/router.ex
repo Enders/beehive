@@ -7,14 +7,16 @@ defmodule Beehive.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Beehive.Plugs.Session
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Beehive.Plugs.Session
   end
 
   pipeline :authenticate do
-    plug Beehive.Plugs.Token
+    plug Beehive.Plugs.Authenticate
   end
 
   scope "/", Beehive do
