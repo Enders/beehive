@@ -17,12 +17,14 @@ class Executioner extends Component {
     var { executioner } = this.props
     var status, actions
 
-    if(executioner.status=="pending") status = "Hunting"
     if(executioner.status=="running") status = "Running"
     if(executioner.status=="waiting") status = "Idle"
-    if(executioner.status=="failed") status = "No jobs available"
+    if(executioner.status=="request_pending") status = "Hunting"
+    if(executioner.status=="request_failed") status = "No jobs available"
+    if(executioner.status=="sending_pending") status = "Sending result"
+    if(executioner.status=="sending_failed") status = "Failed to send result"
 
-    if(executioner.status=="waiting"||executioner.status=="failed") {
+    if(executioner.status=="waiting"||executioner.status=="request_failed"||executioner.status=="sending_failed") {
       actions = (
         <span>
           <button className="btn btn-danger btn-xs" onClick={this.requestJob.bind(this)}>

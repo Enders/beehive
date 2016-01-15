@@ -1,0 +1,30 @@
+function failed(exception) {
+  self.postMessage({
+    status: "error",
+    details: exception
+  })
+}
+
+function done(result) {
+  self.postMessage({
+    status: "ok",
+    details: result
+  });
+}
+
+function doWork(){
+  <%= raw @payload %>
+}
+
+self.addEventListener('message', function(event){
+  const command = event.data.command;
+  switch(command) {
+    case 'start':
+      doWork()
+      break;
+    case 'stop':
+      self.failed("Termination requested");
+      self.close();
+      break;
+  }
+}, false);

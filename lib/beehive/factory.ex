@@ -22,7 +22,7 @@ defmodule Beehive.Factory do
 
   def factory(:completed_job_execution) do
     %Beehive.JobExecution{
-      status: 1,
+      status: Beehive.JobExecution.status_completed,
       result: "{'result': 42}",
       job: build(:job),
       user: build(:user)
@@ -31,16 +31,16 @@ defmodule Beehive.Factory do
 
   def factory(:pending_job_execution) do
     %Beehive.JobExecution{
-      status: 0,
+      status: Beehive.JobExecution.status_pending,
       result: nil,
       job: build(:job),
       user: build(:user)
     }
   end
 
-  def factory(:timedout_job_execution) do
+  def factory(:failed_job_execution) do
     %Beehive.JobExecution{
-      status: 2,
+      status: Beehive.JobExecution.status_failed,
       result: nil,
       job: build(:job),
       user: build(:user)

@@ -13,6 +13,7 @@ defmodule Beehive.JobView do
     %{id: job.id,
       payload: job.payload,
       max_run: job.max_run,
+      run_summaries: Beehive.Job.run_summaries(job),
       created_at: job.inserted_at}
   end
 end

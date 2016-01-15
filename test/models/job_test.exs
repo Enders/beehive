@@ -33,12 +33,12 @@ defmodule Beehive.JobTest do
   test "available_job: 1 job, 1 pending execution, 1 completed, max run == 2" do
     job = create :job, max_run: 2
     create :completed_job_execution, job: job
-    create :timedout_job_execution, job: job
+    create :failed_job_execution, job: job
 
     assert Job.available_job.id == job.id
   end
 
-  test "available_job: timedout execution don't count" do
+  test "available_job: failed execution don't count" do
     job = create :job, max_run: 2
     create :completed_job_execution, job: job
     create :pending_job_execution, job: job

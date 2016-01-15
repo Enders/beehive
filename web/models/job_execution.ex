@@ -27,5 +27,14 @@ defmodule Beehive.JobExecution do
   #TODO: find how to do enum constants
   def status_pending, do: 0
   def status_completed, do: 1
-  def status_timedout, do: 2
+  def status_failed, do: 2
+
+  def status_atom(0), do: :pending
+  def status_atom(1), do: :completed
+  def status_atom(2), do: :failed
+  def status_atom(_), do: :invalid
+
+  def payload_url(model) do
+    "/api/jobs/#{model.job_id}/payload"
+  end
 end

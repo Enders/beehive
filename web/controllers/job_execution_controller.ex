@@ -14,7 +14,7 @@ defmodule Beehive.JobExecutionController do
         |> put_status(:unprocessable_entity)
         |> json(%{error: :no_available_job})
       job ->
-        changeset = Ecto.build_assoc(job, :job_executions, %{status: JobExecution.status_pending, user: current_user(conn)})
+        changeset = Ecto.build_assoc(job, :job_executions, %{status: JobExecution.status_pending, user_id: current_user(conn).id})
         case Repo.insert(changeset) do
           {:ok, job_execution} ->
             job_execution = Repo.preload job_execution, :job
@@ -30,19 +30,17 @@ defmodule Beehive.JobExecutionController do
     end
   end
 
-  # def show(conn, %{"id" => id}) do
-  #   job_execution = Repo.get!(JobExecution, id)
-  #   render(conn, "show.json", job_execution: job_execution)
-  # end
-
-  # def index(conn, _params) do
-  #   job_executions = Repo.all(JobExecution)
-  #   render(conn, "index.json", job_executions: job_executions)
-  # end
-
   def update(conn, %{"id" => id, "job_execution" => job_execution_params}) do
-    job_execution = Repo.get!(JobExecution, id)
-    changeset = JobExecution.changeset(job_execution, job_execution_params)
+    job_execution = conn |> job_execution(id)
+
+    params = if job_execution_params["status"] == "ok" do
+      %{ status: JobExecution.status_completed,
+         result: Poison.encode!(job_execution_params["result"])}
+    else
+      %{}
+    end
+
+    changeset = JobExecution.changeset(job_execution, params)
 
     case Repo.update(changeset) do
       {:ok, job_execution} ->
@@ -55,12 +53,14 @@ defmodule Beehive.JobExecutionController do
   end
 
   def delete(conn, %{"id" => id}) do
-    job_execution = Repo.get!(JobExecution, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(job_execution)
+    conn |> job_execution(id) |> Repo.delete!
 
     send_resp(conn, :no_content, "")
+  end
+
+  defp job_execution(conn, id) do
+    (from job_execution in JobExecution, where: job_execution.user_id == ^(current_user(conn).id))
+    |> Repo.get!(id)
+    |> Repo.preload(:job)
   end
 end

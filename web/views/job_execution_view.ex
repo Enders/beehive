@@ -11,9 +11,9 @@ defmodule Beehive.JobExecutionView do
 
   def render("job_execution.json", %{job_execution: job_execution}) do
     %{id: job_execution.id,
-      job_id: %{
+      job: %{
         id: job_execution.job.id,
-        payload: job_execution.job.payload
+        payload_url: Beehive.JobExecution.payload_url(job_execution)
       },
       result: job_execution.result,
       status: job_execution.status}

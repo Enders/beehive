@@ -11,7 +11,7 @@ defmodule Beehive.Job do
     field :payload, :string
     field :max_run, :integer
     belongs_to :user, Beehive.User
-    has_many :job_executions, JobExecution
+    has_many :job_executions, JobExecution, on_delete: :delete_all
     timestamps
   end
 
@@ -38,5 +38,16 @@ defmodule Beehive.Job do
     |> limit(1)
     |> Repo.all
     |> List.first
+  end
+
+  def run_summaries(job) do
+    JobExecution
+    |> where([job_executions], job_executions.job_id == ^job.id)
+    |> select([job_executions], [job_executions.status, count(job_executions.id)])
+    |> group_by([job_executions], job_executions.status)
+    |> Repo.all
+    |> Enum.map(fn([status, count]) ->
+      [JobExecution.status_atom(status), count]
+    end)
   end
 end

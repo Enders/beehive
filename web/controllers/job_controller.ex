@@ -30,6 +30,12 @@ defmodule Beehive.JobController do
     render(conn, "show.json", job: job)
   end
 
+  def payload(conn, %{"job_id" => id}) do
+    conn
+    |> put_resp_content_type("application/javascript")
+    |> render("payload.js", payload: job(conn, id).payload)
+  end
+
   # def update(conn, %{"id" => id, "job" => job_params}) do
   #   job = Repo.get!(Job, id)
   #   changeset = Job.changeset(job, job_params)
@@ -45,11 +51,7 @@ defmodule Beehive.JobController do
   # end
 
   def delete(conn, %{"id" => id}) do
-    job = Repo.get!(Job, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(job)
+    conn |> job(id) |> Repo.delete!
 
     send_resp(conn, :no_content, "")
   end
@@ -64,5 +66,10 @@ defmodule Beehive.JobController do
 
   defp jobs(conn) do
     (current_user(conn) |> Repo.preload(:jobs)).jobs
+  end
+
+  defp job(conn, id) do
+    (from job in Job, where: job.user_id == ^(current_user(conn).id))
+    |> Repo.get!(id)
   end
 end
