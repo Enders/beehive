@@ -12,7 +12,9 @@ import { SignInUserDone } from "actions/user"
 import BeehiveApp from './components/beehive_app'
 import SignUp from './components/user/sign_up'
 import SignIn from './components/user/sign_in'
-import JobIndex from './components/jobs/job_index'
+import JobsIndex from './components/jobs/index/index'
+import JobsShow from './components/jobs/show/show'
+import JobsShowResults from './components/jobs/show/results'
 import JobNew from './components/jobs/job_new'
 import JobExecutionIndex from './components/job_executions/index'
 
@@ -44,8 +46,12 @@ ReactDOM.render((
         <Route path="sign_up" component={SignUp} />
         <Route path="sign_in" component={SignIn} />
         <Route path="home" component={Home} />
-        <Route path="jobs" component={JobIndex}/>
+        <Route path="jobs" component={JobsIndex}/>
         <Route path="jobs/new" component={JobNew}/>
+        <Route path="jobs/:id" component={JobsShow}>
+          <IndexRoute component={JobsShowResults}/>
+          <Route path="results" component={JobsShowResults}/>
+        </Route>
         <Route path="run" component={JobExecutionIndex}/>
       </Route>
     </Router>

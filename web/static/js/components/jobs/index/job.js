@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { Link } from 'react-router'
 import { DeleteJob } from 'actions/jobs'
 
 import _ from 'lodash'
@@ -42,7 +42,7 @@ class JobStatus extends Component {
   }
 }
 
-class Job extends Component {
+class JobsIndexJob extends Component {
 
   deleteJob() {
     this.props.dispatch(DeleteJob(this.props.job.id))
@@ -51,28 +51,20 @@ class Job extends Component {
   render () {
     const { job } = this.props
     return (
-      <tr>
-        <td>
-          {job.id}
-        </td>
-        <td>
-          {job.created_at}
-        </td>
-        <td>
-          <JobStatus maxRun={job.max_run}
-                     runSummaries={job.run_summaries} />
-        </td>
-        <td>
-          -
-        </td>
-        <td>
-          <button className='btn btn-danger' onClick={this.deleteJob.bind(this)}>
-            Delete
-          </button>
-        </td>
-      </tr>
+      <li>
+        <Link to={"/jobs/" + this.props.job.id }>
+          {job.id}, {job.created_at}
+        </Link>
+
+        <JobStatus maxRun={job.max_run}
+                   runSummaries={job.run_summaries} />
+
+        <button className='btn btn-danger' onClick={this.deleteJob.bind(this)}>
+          Delete
+        </button>
+      </li>
     )
   }
 }
 
-export default Job = connect()(Job)
+export default JobsIndexJob = connect()(JobsIndexJob)

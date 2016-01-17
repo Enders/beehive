@@ -27,3 +27,11 @@ export function DeleteJob(id) {
     success: (dispatch) => { dispatch({ type: "DELETE_USER_JOB_DONE", deletedId: id })}
   })
 }
+
+export function FetchJob(id) {
+  return apiAjax({
+    action: "FETCH_USER_JOB",
+    verb: "GET",
+    url: `/api/jobs/${id}`
+  })
+}

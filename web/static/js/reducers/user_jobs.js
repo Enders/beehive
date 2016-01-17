@@ -3,7 +3,8 @@ import _ from 'lodash'
 export default function userJobs(state, action) {
   if(!state) {
     return {
-      jobs: []
+      jobs: [],
+      currentJob: null
     }
   }
 
@@ -20,6 +21,15 @@ export default function userJobs(state, action) {
     case 'DELETE_USER_JOB_DONE':
       const jobs = state.jobs.filter((job) => job.id != action.deletedId)
       return {...state, jobs: jobs}
+
+    case 'FETCH_USER_JOB_PENDING':
+      return {...state, currentJob: { fetchStatus: "pending" }}
+
+    case 'FETCH_USER_JOB_DONE':
+      return {...state, currentJob: {...action.data.job, fetchStatus: "done" }}
+
+    case 'FETCH_USER_JOB_FAILED':
+      return {...state, currentJob: {fetchStatus: "error" }}
 
     default:
       return state;

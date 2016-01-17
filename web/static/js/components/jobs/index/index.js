@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
 import { FetchUserJobs } from 'actions/jobs'
-import JobList from './job_list'
+import JobsIndexList from './list'
 
-class JobIndex extends Component {
+class JobsIndex extends Component {
   componentDidMount () {
     this.props.dispatch(FetchUserJobs())
   }
@@ -20,10 +20,10 @@ class JobIndex extends Component {
             Create a new job
           </Link>
         </h1>
-        <JobList />
+        <JobsIndexList />
       </div>
     )
   }
 }
 
-export default JobIndex = connect()(JobIndex)
+export default JobsIndex = connect()(JobsIndex)

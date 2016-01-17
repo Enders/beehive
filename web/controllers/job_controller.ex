@@ -17,7 +17,7 @@ defmodule Beehive.JobController do
         conn
         |> put_status(:created)
         |> put_resp_header("location", job_path(conn, :show, job))
-        |> render("show.json", job: job)
+        |> render("job_base.json", job: job)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -26,8 +26,7 @@ defmodule Beehive.JobController do
   end
 
   def show(conn, %{"id" => id}) do
-    job = Repo.get!(Job, id)
-    render(conn, "show.json", job: job)
+    render(conn, "show.json", job: job(conn, id))
   end
 
   def payload(conn, %{"job_id" => id}) do
@@ -71,5 +70,6 @@ defmodule Beehive.JobController do
   defp job(conn, id) do
     (from job in Job, where: job.user_id == ^(current_user(conn).id))
     |> Repo.get!(id)
+    |> Repo.preload(:job_executions)
   end
 end

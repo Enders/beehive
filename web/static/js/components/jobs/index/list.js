@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Job from './job'
+import JobsIndexJob from './job'
 
-class JobList extends Component {
+class JobsIndexList extends Component {
   render () {
     const { jobs, noJobs, fetchError, fetching } = this.props;
 
@@ -32,22 +32,11 @@ class JobList extends Component {
     }
 
     return (
-      <table className="table table-condensed table-striped">
-        <thead>
-          <tr>
-            <th>Job id</th>
-            <th>Creation date</th>
-            <th>Current status</th>
-            <th>Results</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {jobs.map( (job) => {
-            return (<Job key={job.id} job={job} />)
+      <ul className="list-unstyled list-inline jobs">
+        {jobs.map( (job) => {
+            return (<JobsIndexJob key={job.id} job={job} />)
           })}
-        </tbody>
-      </table>
+      </ul>
     )
   }
 }
@@ -61,4 +50,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default JobList = connect(mapStateToProps, null)(JobList)
+export default JobsIndexList = connect(mapStateToProps, null)(JobsIndexList)
